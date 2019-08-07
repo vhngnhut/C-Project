@@ -1,0 +1,295 @@
+#include<conio.h>
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+static int i=0; 
+struct User
+{	char  ID[30];
+    char name[30];
+    char pass[30];
+} w[99];
+int n;
+int delchar(char *x,int a, int b);
+void readfile();
+void reg();
+void login();
+void findpass();
+int main()
+{   readfile();
+    printf("\t\t\t**  **  **  **    ****    ****  ******  ***   **\n");
+    printf("\t\t\t**  **  **  **   *       *        **    ****  **\n");
+    printf("\t\t\t******  ******  *       *         **    ** ** **\n");
+    printf("\t\t\t**  **  **  **   *       *        **    **  ****\n");
+    printf("\t\t\t**  **  **  **    ****    ****    **    **   ***\n");
+    printf("\n\n\t\t\t\t~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    printf("\t\t\t    |  SHOPPING EVERYTIME AND EVERYWHER  |\n");
+    printf("\t\t\t\t~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	printf("\n\n\n\n\n\t\t\t\t\tWELCOME TO HHCCTN");
+	printf("\n\t\t\t\t\t=================");
+	printf("\n\n\n\n\t\t\t\t    Press Enter to proceed...!!");
+	getch();
+	XY:	
+	printf("\n\n\n\t\t1. LOGIN\t\t2. REGISTER\t\t3.FORGOT PASSWORD?");
+	printf("\n\n\n\t\t\t\t     ENTER YOUR CHOICE: ");
+	scanf("%d",&n);
+	switch(n)
+	  {
+	    case 1: 1; 
+	        login();
+	        break;
+	    case 2: 2;
+	        reg();
+	        break;
+	    case 3: 3;
+	        findpass();
+	        break;
+	    default: printf("\n\n\t\t\t\tYOUR CHOICE IS NOT IN THE OPTION.");
+	        printf("\n\n\t\t\t\t   Press Enter to choose again.");
+	        goto XY;
+	  }
+	
+	return 0;
+}
+int delchar(char *x,int a, int b)
+{
+	if ((a+b-1) <= strlen(x))
+		strcpy(&x[b-1],&x[a+b-1]);
+return 0;
+}
+void readfile()
+{FILE *f;
+    f=fopen("C:\\Users\\ADMIN\\Pictures\\account.txt","r");
+	for (int i=0;i<100;i++)
+	{ 
+		fgets(w[i].ID,100,f);
+		delchar(w[i].ID,8,1);
+		fgets(w[i].name,100,f);
+		delchar(w[i].name,6,1);
+		fgets (w[i].pass,100,f);
+		delchar(w[i].pass,10,1);
+		//printf("%d:%s * %s * %s",i,w[i].ID,w[i].name,w[i].pass); //fortest
+	}
+}
+void reg()
+{	
+	FILE *f;
+    char str1[30],c,a[30],checker[30]; int e=0,count=0,d=0,z=0;
+    f=fopen("C:\\Users\\ADMIN\\Pictures\\account.txt","a+");
+    printf("\n\n\t\t\t\tWELCOME TO REGISTER ZONE");
+    printf("\n\t\t\t\t^^^^^^^^^^^^^^^^^^^^^^^^");
+	for (i=0;i<100;i++)
+		{	printf("\n\n\t\t\t\t  ENTER ID: ");
+      		scanf("%s",checker);
+      		strcpy (str1, checker);
+			strcat (str1, "\n");
+        	for (int j=0;j<100;j++)	
+        		{
+					if(strcmp(w[j].ID,str1)==0)
+        			{
+					printf("\n\n\t\t\t ID ALREDY EXISTS");
+					printf("\n\n\t\t\t\t  ENTER ID: ");
+      				scanf("%s",checker);
+      				strcpy (str1, checker);
+					strcat (str1, "\n");
+					//reg();
+					//printf("\n%d:%s",j,w[j].ID);
+					}
+        			else if (atoi(w[j+1].ID)!=0) 
+					{ //printf("\n%d:%s",j,w[j].ID);
+					continue;}
+        			else break;
+        		}
+			printf("\n\n\t\t\t\t  DESIRED PASSWORD: ");
+			scanf("%s",w[i].pass);
+      			/*while((c=getch())!=13)
+        			{   
+          				a[i]=c;
+          				printf("%c",'*');
+					} */
+			fflush(stdin);
+			printf("\n\n\t\t\t\t  YOUR NAME: ");gets(w[i].name);
+			fprintf(f,"UserID: %s\r\nName: %s\r\nPassword: %s\r\n",checker,w[i].name,w[i].pass);
+			fclose(f);
+      		printf("\n\n\tPress enter if you agree with ID and Password");   
+			if((c=getch())==13)
+        	{
+        		printf("\n\n\t\tYou are successfully registered");
+
+        		printf("\n\n\t\tTry login your account??\n\n\t\t  ");
+
+        		printf("> PRESS 1 FOR YES\n\n\t\t  > PRESS 2 FOR NO\n\n\t\t\t\t");
+        		scanf("%d",&n);
+        		switch(n)
+          			{
+              			case 1: 1;
+                    	login();
+                    	break;
+              			case 2: 2;
+                    	printf("\n\n\n\t\t\t\t\tTHANK YOU FOR REGISTERING");
+                    	break;
+          			}
+          	break;
+        	}   
+    break;   
+        }
+	getch();
+}
+void login()
+
+    {
+
+      FILE *f;
+
+      char str[30],str1[30],str2[30],c,id[30],pass[30]; int z=0;
+
+      int checku,checkp,a,b;
+
+      f=fopen("C:\\Users\\ADMIN\\Pictures\\account.txt","r");
+
+      printf("\n\n\t\t\t\t     WELCOME TO LOG IN ZONE");
+
+      printf("\n\t\t\t\t     ^^^^^^^^^^^^^^^^^^^^^^");
+
+      for(int i=0;i<1000;i++)
+
+      {
+
+        printf("\n\n\t\t\t\t  ENTER ID: ");
+
+        scanf("%s",id);
+        strcpy (str1,id);
+		strcat (str1, "\n");
+        printf("\n\n\t\t\t\t  ENTER PASSWORD: ");
+        scanf("%s",pass);
+        /*while((c=getch())!=13)
+        {
+          pass[z++]=c;
+          printf("%c",'*');
+        }*/
+        strcpy (str2,pass);
+		strcat (str2, "\n");
+		pass[z]='\0';
+      	{ for (int i=0;i<100;i++)
+          {
+          checku=strcmp(str1,w[i].ID);
+          //printf("%d",checku);
+          checkp=strcmp(str2,w[i].pass);
+          //printf("%d",checkp);
+          //if ((checku==0) && (checkp==0)) printf("%d",i);
+          //if (checkp==0) printf("%d",i);
+          if(checku==0) //&&checkp==0)
+             { if (checkp==0) 
+          {
+            printf("\n\n\n\t\t\t     YOU HAVE LOGGED IN SUCCESSFULLY!!");
+            printf("\n\n\n\t\t\t\tWELCOME, HAVE A NICE DAY");
+          }
+        		else 
+          {
+            printf("\n\n\n\t\t\t\tWRONG PASSWORD!! Not %s??",id);
+            printf("\n\n\t\t\t\t  (Press 'Y' to re-login)");
+            if(getch()=='y'||getch()=='Y')
+              login();
+          }}
+        else if((atoi(w[i+1].ID)!=0)) continue;
+        else {
+		break;
+		
+            printf("\n\n\n\t\t\tYou are not a Registered User\n \t\t\tPress enter to register yourself");
+            getch();
+			reg();
+          }
+		
+        }}
+		break;
+
+      }
+
+      getch();
+
+    }
+void findpass()
+
+    {
+
+      FILE *f;
+
+      char str[30],str1[30],str2[30],c,id[30],name[30]; int z=0;
+
+      int checku,checkp,a,b,n;
+
+      f=fopen("C:\\Users\\ADMIN\\Pictures\\account.txt","r");
+
+      printf("\n\n\t\t\t\tPLEASE GIVE SOME INFORMATION TO GET BACK YOUR PASSWORD");
+
+      printf("\n\t\t\t\t^^^^^^^^^^^^^^^^^^^^^^");
+
+      for(int i=0;i<1000;i++)
+
+      {
+
+        printf("\n\n\t\t\t\t  ENTER ID: ");
+
+        scanf("%s",id);
+        strcpy (str1,id);
+		strcat (str1, "\n");
+		fflush(stdin);
+        printf("\n\n\t\t\t\t  ENTER YOUR NAME: ");
+        gets(name);
+        /*while((c=getch())!=13)
+        {
+          pass[z++]=c;
+          printf("%c",'*');
+        }*/
+        strcpy (str2,name);
+		strcat (str2, "\n");
+		name[z]='\0';
+      	{ for (int i=0;i<100;i++)
+          {
+          checku=strcmp(str1,w[i].ID);
+          //printf("%d",checku);
+          checkp=strcmp(str2,w[i].name);
+          //printf("%d",checkp);
+          //if ((checku==0) && (checkp==0)) printf("%d",i);
+          //if (checkp==0) printf("%d",i);
+          if(checku==0) //&&checkp==0)
+             { if (checkp==0) 
+          {
+            printf("\n\n\n\t\t\tHERE IS YOUR PASSWORD: %s",w[i].pass);
+            printf("\n\n\n\t\t\t\tDO YOU WANT TO LOG IN?");
+            printf("\n\n\n\t\t\t\tPress 1 for Yes, press 2 for No");
+            scanf("%d",&n);
+        		switch(n)
+          			{
+              			case 1: 1;
+                    	login();
+                    	break;
+              			case 2: 2;
+                    	printf("\n\n\n\t\t\t\t\tSEE YOU NEXT TIME");
+                    	break;
+          			}
+          }
+        		else 
+          {
+            printf("\n\n\n\t\t\tWRONG NAME!! PLEASE INPUT AGAIN!!");
+            printf("\n\n\t\t\t\t  (Press 'Y' to re-input)");
+            if(getch()=='y'||getch()=='Y')
+              findpass();
+          }}
+        else if((atoi(w[i+1].ID)!=0)) continue;
+        else {
+		break;
+		
+            printf("\n\n\n\t\t\tThis ID is not registered yet.\n \t\t\tPress 'Y' if you want to register.");
+            if(getch()=='y'||getch()=='Y')
+            reg();
+            getch();
+          }
+		
+        }}
+		break;
+
+      }
+
+      getch();
+
+    }
